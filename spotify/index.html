@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+   <div class="sidebar">
+      
+    
+    <div class="sidebar wrapper">
+            
+        
+        
+    <div class="sidebar__logo">
+        <img src="img/logo.png">
+    
+    </div>
+    
+      
+          <div class="sidebar__menu">
+              <a class = "sidebar__menu__selecionado" href="#"><i class="fas fa-home"></i>Início </a>
+              <a href="#"> <i class="fas fa-seach"></i> Buscar</a>
+              <a href="#"> <i class="fas fa-database"></i> Biblioteca</a>
+    
+    
+        </div>
+        <div class="sidebar__menu">
+            <p class="sidebar__menu__tittle">PlayLists</p>
+                 <div class="sidebar__menu__item">
+                      <div class="sidebar__menu__item__componente">
+                        +
+                    </div>
+                <span>Criar Playlist</span>
+                  <div class="sidebar__menu__item">
+                <img src="img/Coracao.png" alt="">
+                <span>Musicas Curtidas</span>
+                </div>
+            </div>
+
+         </div>
+          <div class="sidebar__playlists">
+            <a>RockRoll</a>
+            <a>Trap Nacional</a>
+            <a>Matuê</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+
+          </div>
+          <div class="sidebar__playlists">
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+
+          </div>
+          <div class="sidebar__playlists">
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+            <a>Playlist 1</a>
+
+          </div>
+         
+        </div>
+
+   </div>
+   
+        <div class="main">
+            <div class="main-wrapper">
+                <div class="main__row">
+                    <div class="main__row__title"><h2>Charts</h2></div>
+                    <div class="main__col">
+                        <img class="top" src="img/top50b.jpg" alt="" >
+                        <h3>As 50 mais tocadas</h3>
+                        <p>Aqui vai a descrição da minha musica...</p>
+                    </div>
+                    <div class="main__col">
+                        <img class="top" src="img/top50g.jpg" alt="" >
+                        <h3>As 50 mais tocadas</h3>
+                        <p>Aqui vai a descrição da minha musica...</p>
+                    </div>
+                </div>
+
+                    <div class="main__row"> 
+                        
+                        <div class="main__row__title"><h2> My Songs</h2></div>
+            <div class="main__col" data-image="img/matue.jpg" data-artist = "Matuê" data-song = "Quer Voar" data-file = "musica/quervoar.mp3">
+                        <img class="top" src="img/matue.jpg" alt="" >
+                        <h3>This is Matuê</h3>
+                        <p>Quer voar? Da play nos sucessos do Matuê.</p>
+                    </div>
+                    <div class="main__col">
+                        <img class="top" src="img/djonga.jpg" alt="" >
+                        <h3>This is Djonga</h3>
+                        <p>Ouça os hits e novidades do Djonga!.</p>
+                    </div>
+                <div class="main__col" data-image="img/ret.jpg" data-artist = "Filipe Ret" data-song = "Acende a Vela" data-file = "musica/acendeavela.mp3">
+                        <img class= "top" src="img/ret.jpg" alt="" >
+                        <h3>This is Filipe Ret</h3>
+                        <p>
+                            Este é Filipe Ret. As faixas essenciais, tudo em uma lista de reprodução.</p>
+                    </div>
+                </div>
+            </div>
+            </div><!--main wrapper-->
+   </div>
+   <div class="player">
+        <div class="player__artist">
+
+
+        </div>
+        <div class="player__control">
+            <div class="player__control__buttons">
+
+                <a><i class = "fas fa-backward"></i></a>
+                <a style = "display: none;" id ="pausebtn"> <i class = "far fa-pause-circle"></i></a>
+                <a id="playbtn"><i class="far fa-play-circle"></i></a>
+                <a><i class = "fas fa-forward"></i></a>
+            </div>
+
+            <div class="player__control__progress">
+                <div  style="width: 10%;" class="player__control__progress_2"></div>
+            </div>
+
+        </div>
+
+   </div><!--player-->
+   <audio id="audioplayer" style="position: absolute; left: 0; top: 0; z-index: -999; opacity: 0;" t controls= "">
+    
+   </audio>
+
+    
+    <script src="javascptspo/all.min.js"></script>
+    <script>
+        var audioplayer = document.getElementById ( "audioplayer");
+        var loader = false;
+        var playbtn = document.getElementById("playbtn")
+        var pausebtn = document.getElementById("pausebtn")
+
+
+            document.getElementById("pausebtn").addEventListener("click",(e)=>{
+                e.preventDefault();
+               
+            playbtn.style.display = "inline";
+            pausebtn.style.display = "none"
+            audioplayer.pause();
+            return false;
+
+            });
+
+
+            playbtn.addEventListener("click",(e)=>{
+                e.preventDefault();
+                playbtn.style.display ="none";
+                pausebtn.style.display  ="inline";
+                audioplayer.play();
+                return false;
+
+            });
+
+
+            const playsong = (file) => {
+                if(loader == false){
+                    audioplayer.innerHTML = `<source src="`+ file+` "type = "audio/mp3" />`;
+                    loader = true;
+
+
+
+                }
+                audioplayer.play();
+                playbtn.style.display = "none";
+                pausebtn.style.display = "inline";
+            }
+            document.querySelectorAll('.main__col').forEach(item =>{
+                item.addEventListener ('click',event=>{
+                    let image = item.getAttribute("data-image");
+                    let song = item.getAttribute("data-song");
+                    let file = item.getAttribute("data-file");
+                    let artist = item.getAttribute("data-artist");
+
+
+                    let playerArtistComponent = document.getElementsByClassName("player__artist");
+
+                    playerArtistComponent[0].innerHTML = `
+                    <img src = "`+image+ `"/>
+                    <h3>`+artist+`<br/><span>`+song+`</span></h3>`
+                    ;
+
+                    playsong(file);
+                })
+
+            });
+
+    </script>
+
+
+</body>
+
+</html>
